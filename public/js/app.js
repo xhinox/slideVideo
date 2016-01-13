@@ -2816,24 +2816,101 @@ var _owlCarousel = require('owlCarousel');
 
 var _owlCarousel2 = _interopRequireDefault(_owlCarousel);
 
+var _clima = require('./encabezado/clima');
+
+var _clima2 = _interopRequireDefault(_clima);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 $(document).ready(function () {
+
+	debugger;
+	var key = '1dbb3ee69bd082452480b7b9b6a17661';
+	var api = new _clima2.default(key);
+	api.hasAlgo();
+
 	var owl = $('.owl-carousel');
+	var $body = $('body');
+
+	$body.addClass('backImage');
+
 	owl.owlCarousel({
 		video: true,
 		items: 1,
-		loop: true,
 		margin: 500,
-		onChanged: play
+		video: true,
+		lazyLoad: true,
+		// autoplay:true,
+		onInitialized: cambioElemento,
+		onTranslated: cambioElemento
 	});
 
-	console.log('e');
-	function play(event) {
-		var x = document.getElementById('video1');
-		x.play();
+	function cambioElemento(e) {
+
+		if ($body.hasClass('backColor')) {
+			$body.removeClass('backColor').addClass('backImage');
+		}
+
+		var count = e.item.count - 1;
+		var element = e.item.index;
+
+		var info = $('.owl-item.active').children(0).data('info');
+
+		if (info === 'video') {
+
+			$body.removeClass('backImage').addClass('backColor');
+
+			var iVideo = $('.owl-item.active').children(0).children(0).attr('id');
+
+			owl.trigger('stop.owl.autoplay');
+
+			var x = document.getElementById('' + iVideo);
+			x.play();
+
+			x.addEventListener("ended", function () {
+
+				if (count === element) {
+					console.log('pum');
+					owl.trigger('to.owl.carousel', [0, 0]);
+					owl.trigger('play.owl.autoplay');
+				} else {
+					owl.trigger('next.owl.autoplay', [0]);
+					owl.trigger('play.owl.autoplay');
+				}
+			});
+		}
 	}
-	console.log('f');
 });
 
-},{"jquery":1,"owlCarousel":2}]},{},[3]);
+},{"./encabezado/clima":4,"jquery":1,"owlCarousel":2}],4:[function(require,module,exports){
+'use strict';
+
+var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Clima = (function () {
+	function Clima(key) {
+		_classCallCheck(this, Clima);
+
+		this.key = key;
+		this.baseUrl = 'http://api.openweathermap.org/data/2.5/';
+	}
+
+	_createClass(Clima, [{
+		key: 'hasAlgo',
+		value: function hasAlgo() {
+			console.log(this.baseUrl + 'q=' + this.key);
+		}
+	}]);
+
+	return Clima;
+})();
+
+},{"jquery":1}]},{},[3]);

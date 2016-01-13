@@ -7,15 +7,59 @@ html
 		link(rel="stylesheet", href="../bower_components/owl.carousel/dist/assets/owl.carousel.min.css")
 		link(rel="stylesheet", href="../bower_components/owl.carousel/dist/assets/owl.theme.default.min.css")
 	body
-		div(class="owl-carousel contenedor")
-			div(class="u-block" data-info="tarjeta")
-				| a
-			div(id="vid1" class="u-block" data-info="video")
-				video(id="video1") 
+		section(class="owl-carousel contenedor")
+			article(class="u-block" data-info="tarjeta")
+				//- header
+				header(class="encabezado u-block")
+					include ./encabezado/template.jade
+				//- body
+				section(class="cuerpo")
+					//- tarjeta
+					include ./tarjeta/templateMP.jade
+					include ./tarjeta/templateMP2.jade
+					include ./tarjeta/templateMH.jade
+					include ./tarjeta/templateMPL.jade
+
+			article(class="u-block" data-info="tarjeta")
+				header(class="encabezado u-block3")
+					include ./encabezado/template.jade
+				//- body
+				section(class="cuerpo")
+					//- tarjeta
+					include ./tarjeta/templateMP3.jade
+					include ./tarjeta/templateMH.jade
+					include ./tarjeta/templateMPL.jade
+
+			article(id="vid1" class="u-block" data-info="video")
+				video(id="video1" width="640" height="360" muted) 
+					source(src="./images/movie.ogg" type="video/ogg")
+
+			article(class="u-block" data-info="tarjeta")
+				//- header
+				header(class="encabezado u-block")
+					include ./encabezado/template.jade
+				//- body
+				section(class="cuerpo")
+					//- tarjeta
+					include ./tarjeta/templateMP.jade
+					include ./tarjeta/templateMP2.jade
+					include ./tarjeta/templateMH.jade
+					include ./tarjeta/templateMPL.jade
+
+			article(class="u-block" data-info="tarjeta")
+				header(class="encabezado u-block3")
+					include ./encabezado/template.jade
+				//- body
+				section(class="cuerpo")
+					//- tarjeta
+					include ./tarjeta/templateMP3.jade
+					include ./tarjeta/templateMH.jade
+					include ./tarjeta/templateMPL.jade
+
+
+			article(id="vid2" class="u-block" data-info="video")
+				video(id="video2" width="640" height="360" muted)
 					source(src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4")
 					source(src="http://www.quirksmode.org/html5/videos/big_buck_bunny.webm" type="video/webm")
-					source(src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg")
-			div(class="u-block" data-info="tarjeta")
-				| c
 
 		script(type="text/javascript" src="./js/app.js")
